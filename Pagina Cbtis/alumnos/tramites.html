@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trámites y Servicios - CBTis 227</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFFFFF;
+      color: #000000;
+    }
+
+    .top-header {
+      background-color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 40px;
+      border-bottom: 3px solid #A7201F;
+    }
+
+    .top-header img {
+      height: 60px;
+    }
+
+    .logos-left, .logos-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .welcome-banner {
+      background: linear-gradient(135deg, #4d0000 0%, #92000c 100%);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .welcome-banner h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .menu {
+      background-color: #370000;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .menu__container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .menu__links {
+      display: flex;
+      list-style: none;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .menu__item {
+      position: relative;
+      height: 100%;
+      --clip: polygon(0 0, 100% 0, 100% 0, 0 0);
+      --transform: rotate(-90deg);
+    }
+
+    .menu__item:hover {
+      --clip: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      --transform: rotate(0);
+    }
+
+    .menu__link {
+      color: #fff;
+      text-decoration: none;
+      padding: 0 25px;
+      display: flex;
+      height: 100%;
+      align-items: center;
+      transition: background-color 0.3s;
+      font-weight: 500;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .menu__link:hover {
+      background-color: #B78629;
+    }
+
+    .menu__arrow {
+      transform: var(--transform);
+      transition: transform .3s;
+      display: block;
+      margin-left: 5px;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid white;
+      border-bottom: 2px solid white;
+    }
+
+    .menu__nesting {
+      list-style: none;
+      transition: clip-path .3s;
+      clip-path: var(--clip);
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: max-content;
+      transform: translateY(100%);
+      background-color: #9D9394;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .menu__link--inside {
+      padding: 15px 25px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .menu__link--inside:hover {
+      background-color: #B78629;
+    }
+
+    .breadcrumb {
+      background-color: #f5f5f5;
+      padding: 15px 40px;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb a {
+      color: #A7201F;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .breadcrumb a:hover {
+      color: #B78629;
+    }
+
+    .breadcrumb span {
+      color: #666;
+      margin: 0 10px;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, rgba(167, 32, 31, 0.9), rgba(183, 134, 41, 0.8));
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+    }
+
+    .content-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    .content-section {
+      margin-bottom: 50px;
+    }
+
+    .content-section h2 {
+      color: #A7201F;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      border-bottom: 3px solid #B78629;
+      padding-bottom: 10px;
+    }
+
+    .content-section p {
+      line-height: 1.8;
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 1.05rem;
+    }
+
+    .tramites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    .tramite-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-left: 5px solid #A7201F;
+    }
+
+    .tramite-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .tramite-card .icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .tramite-card h3 {
+      color: #A7201F;
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+
+    .tramite-card .info-item {
+      margin: 15px 0;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .tramite-card .info-item strong {
+      color: #A7201F;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .tramite-card .info-item p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    .tramite-card .docs-list {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+
+    .tramite-card .docs-list li {
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: #A7201F;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s;
+      margin: 10px 5px;
+    }
+
+    .btn:hover {
+      background-color: #B78629;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(183, 134, 41, 0.4);
+    }
+
+    .alert-info {
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      border-left: 5px solid #2196f3;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 30px 0;
+    }
+
+    .alert-info h4 {
+      color: #1565c0;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .alert-info p {
+      color: #0d47a1;
+      margin: 5px 0;
+    }
+
+    footer {
+      background-color: #A7201F;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.95rem;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 968px) {
+      .top-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+      }
+
+      .logos-left, .logos-right {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .top-header img {
+        height: 50px;
+      }
+
+      .welcome-banner h1 {
+        font-size: 1.5rem;
+      }
+
+      .menu {
+        height: auto;
+      }
+
+      .menu__links {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .menu__item {
+        width: 100%;
+        height: auto;
+      }
+
+      .menu__link {
+        padding: 15px;
+        justify-content: center;
+      }
+
+      .menu__nesting {
+        position: static;
+        transform: none;
+        width: 100%;
+      }
+
+      .page-header h1 {
+        font-size: 2rem;
+      }
+
+      .content-wrapper {
+        padding: 30px 15px;
+      }
+
+      .tramites-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-header">
+    <div class="logos-left">
+      <img src="imagenes/sepp.png" alt="Logo SEP">
+      <img src="imagenes/dgeti.png" alt="Logo DGETI">
+    </div>
+    <div class="logos-right">
+      <img src="imagenes/dgeti.png" alt="Logo DGETI">
+      <img src="imagenes/cbtis.png" alt="Logo CBTis 227">
+    </div>
+  </div>
+
+  <div class="welcome-banner">
+    <h1>CENTRO DE BACHILLERATO TECNOLÓGICO INDUSTRIAL Y DE SERVICIOS NO.227</h1>
+  </div>
+
+  <nav class="menu">
+    <div class="menu__container">
+      <ul class="menu__links">
+        <li class="menu__item">
+          <a href="index.html" class="menu__link">INICIO</a>
+        </li>
+
+        <li class="menu__item">
+          <a href="#" class="menu__link">
+            SERVICIOS ESCOLARES
+            <span class="menu__arrow"></span>
+          </a>
+          <ul class="menu__nesting">
+            <li class="menu__inside">
+              <a href="becas.html" class="menu__link menu__link--inside">Becas</a>
+            </li>
+            <li class="menu__inside">
+              <a href="promocion.html" class="menu__link menu__link--inside">Promoción cultural y deportiva</a>
+            </li>
+            <li class="menu__inside">
+              <a href="orientacion.html" class="menu__link menu__link--inside">Orientación</a>
+            </li>
+            <li class="menu__inside">
+              <a href="servicio_social.html" class="menu__link menu__link--inside">Servicio Social y Titulación</a>
+            </li>
+            <li class="menu__inside">
+              <a href="biblioteca.html" class="menu__link menu__link--inside">Biblioteca</a>
+            </li>
+            <li class="menu__inside">
+              <a href="enfermeria.html" class="menu__link menu__link--inside">Enfermería</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="menu__item">
+          <a href="#" class="menu__link">
+            ALUMNOS
+            <span class="menu__arrow"></span>
+          </a>
+          <ul class="menu__nesting">
+            <li class="menu__inside">
+              <a href="tramites.html" class="menu__link menu__link--inside">Trámites/Servicios</a>
+            </li>
+            <li class="menu__inside">
+              <a href="privacidad.html" class="menu__link menu__link--inside">Aviso de privacidad</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="menu__item">
+          <a href="#" class="menu__link">OFERTA EDUCATIVA</a>
+        </li>
+
+        <li class="menu__item">
+          <a href="#" class="menu__link">CONTACTO</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="index.html">Inicio</a>
+    <span>›</span>
+    <a href="#">Alumnos</a>
+    <span>›</span>
+    <span>Trámites y Servicios</span>
+  </div>
+
+  <div class="page-header">
+    <h1>Trámites y Servicios Escolares</h1>
+    <p>Información sobre los documentos y servicios disponibles para estudiantes</p>
+  </div>
+
+  <div class="content-wrapper">
+    
+    <section class="content-section">
+      <h2>Servicios Disponibles</h2>
+      <p>
+        En Control Escolar ofrecemos diversos trámites y servicios para facilitar tu experiencia académica. 
+        Todos los trámites son gratuitos, a excepción de duplicados y reposiciones que tienen un costo 
+        establecido por la institución.
+      </p>
+    </section>
+
+    <div class="alert-info">
+      <h4>📍 Horarios de Atención</h4>
+      <p><strong>Lunes a Viernes:</strong> 9:00 AM - 2:00 PM y 4:00 PM - 6:00 PM</p>
+      <p><strong>Ubicación:</strong> Edificio Administrativo, 1er Piso - Control Escolar</p>
+      <p><strong>Correo:</strong> control.escolar@cbtis227.edu.mx</p>
+    </div>
+
+    <section class="content-section">
+      <h2>Trámites Disponibles</h2>
+      
+      <div class="tramites-grid">
+        
+        <!-- Constancia de Estudios -->
+        <div class="tramite-card">
+          <span class="icon">📄</span>
+          <h3>Constancia de Estudios</h3>
+          <p>Documento que acredita que eres estudiante activo del plantel.</p>
+          
+          <div class="info-item">
+            <strong>⏱️ Tiempo de entrega:</strong>
+            <p>24 horas hábiles</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>💰 Costo:</strong>
+            <p>Gratuito</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>📋 Requisitos:</strong>
+            <ul class="docs-list">
+              <li>Solicitud por escrito</li>
+              <li>Credencial de estudiante vigente</li>
+              <li>No tener adeudos</li>
+            </ul>
+          </div>
+          
+          <a href="#" class="btn">Descargar Solicitud</a>
+        </div>
+
+        <!-- Certificado Parcial -->
+        <div class="tramite-card">
+          <span class="icon">📜</span>
+          <h3>Certificado Parcial de Estudios</h3>
+          <p>Documento oficial con las calificaciones de los semestres cursados.</p>
+          
+          <div class="info-item">
+            <strong>⏱️ Tiempo de entrega:</strong>
+            <p>5 días hábiles</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>💰 Costo:</strong>
+            <p>Gratuito (primera expedición)</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>📋 Requisitos:</strong>
+            <ul class="docs-list">
+              <li>Solicitud oficial</li>
+              <li>Credencial de estudiante</li>
+              <li>Estar al corriente en pagos</li>
+              <li>No tener materias pendientes</li>
+            </ul>
+          </div>
+          
+          <a href="#" class="btn">Descargar Solicitud</a>
+        </div>
+
+        <!-- Historial Académico -->
+        <div class="tramite-card">
+          <span class="icon">📊</span>
+          <h3>Historial Académico</h3>
+          <p>Kardex con el registro completo de materias y calificaciones.</p>
+          
+          <div class="info-item">
+            <strong>⏱️ Tiempo de entrega:</strong>
+            <p>Inmediato</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>💰 Costo:</strong>
+            <p>Gratuito</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>📋 Requisitos:</strong>
+            <ul class="docs-list">
+              <li>Solicitud verbal o por correo</li>
+              <li>Proporcionar matrícula</li>
+            </ul>
+          </div>
+          
+          <a href="#" class="btn">Solicitar en Línea</a>
+        </div>
+
+        <!-- Credencial -->
+        <div class="tramite-card">
+          <span class="icon">🆔</span>
+          <h3>Credencial de Estudiante</h3>
+          <p>Identificación oficial que te acredita como alumno del CBTis 227.</p>
+          
+          <div class="info-item">
+            <strong>⏱️ Tiempo de entrega:</strong>
+            <p>7 días hábiles</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>💰 Costo:</strong>
+            <p>Gratuito (primera vez)<br>$50 (reposición)</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>📋 Requisitos:</strong>
+            <ul class="docs-list">
+              <li>2 fotografías tamaño infantil</li>
+              <li>Comprobante de pago (reposición)</li>
+              <li>Formato de solicitud</li>
+            </ul>
+          </div>
+          
+          <a href="#" class="btn">Descargar Formato</a>
+        </div>
+
+        <!-- Carta de Buena Conducta -->
+        <div class="tramite-card">
+          <span class="icon">⭐</span>
+          <h3>Carta de Buena Conducta</h3>
+          <p>Documento que certifica tu comportamiento durante tu estancia en el plantel.</p>
+          
+          <div class="info-item">
+            <strong>⏱️ Tiempo de entrega:</strong>
+            <p>48 horas hábiles</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>💰 Costo:</strong>
+            <p>Gratuito</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>📋 Requisitos:</strong>
+            <ul class="docs-list">
+              <li>Solicitud por escrito</li>
+              <li>No tener reportes disciplinarios</li>
+              <li>Credencial vigente</li>
+            </ul>
+          </div>
+          
+          <a href="#" class="btn">Descargar Solicitud</a>
+        </div>
+
+        <!-- Carta de Recomendación -->
+        <div class="tramite-card">
+          <span class="icon">✉️</span>
+          <h3>Carta de Recomendación</h3>
+          <p>Documento donde un docente avala tu desempeño académico.</p>
+          
+          <div class="info-item">
+            <strong>⏱️ Tiempo de entrega:</strong>
+            <p>3-5 días hábiles</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>💰 Costo:</strong>
+            <p>Gratuito</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>📋 Requisitos:</strong>
+            <ul class="docs-list">
+              <li>Solicitud al docente</li>
+              <li>Promedio mínimo de 8.0</li>
+              <li>Especificar el motivo</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Traspaso o Cambio de Turno -->
+        <div class="tramite-card">
+          <span class="icon">🔄</span>
+          <h3>Cambio de Turno</h3>
+          <p>Solicitud para cambiar del turno matutino al vespertino o viceversa.</p>
+          
+          <div class="info-item">
+            <strong>⏱️ Tiempo de entrega:</strong>
+            <p>Sujeto a disponibilidad</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>💰 Costo:</strong>
+            <p>Gratuito</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>📋 Requisitos:</strong>
+            <ul class="docs-list">
+              <li>Solicitud justificada por escrito</li>
+              <li>Carta de motivos</li>
+              <li>Autorización de padres o tutores</li>
+              <li>Disponibilidad en el turno solicitado</li>
+            </ul>
+          </div>
+          
+          <a href="#" class="btn">Más Información</a>
+        </div>
+
+        <!-- Baja Temporal -->
+        <div class="tramite-card">
+          <span class="icon">⏸️</span>
+          <h3>Baja Temporal</h3>
+          <p>Suspensión de estudios por un período determinado (máximo 2 semestres).</p>
+          
+          <div class="info-item">
+            <strong>⏱️ Tiempo de entrega:</strong>
+            <p>5 días hábiles</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>💰 Costo:</strong>
+            <p>Gratuito</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>📋 Requisitos:</strong>
+            <ul class="docs-list">
+              <li>Solicitud por escrito con justificación</li>
+              <li>Autorización de padres</li>
+              <li>Estar al corriente en adeudos</li>
+              <li>Entrevista con servicios escolares</li>
+            </ul>
+          </div>
+          
+          <a href="#" class="btn">Descargar Formato</a>
+        </div>
+
+        <!-- Duplicado de Certificado -->
+        <div class="tramite-card">
+          <span class="icon">📑</span>
+          <h3>Duplicado de Certificado</h3>
+          <p>Copia certificada de tu certificado de estudios en caso de extravío.</p>
+          
+          <div class="info-item">
+            <strong>⏱️ Tiempo de entrega:</strong>
+            <p>15-20 días hábiles</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>💰 Costo:</strong>
+            <p>$300 - $500 (según trámite)</p>
+          </div>
+          
+          <div class="info-item">
+            <strong>📋 Requisitos:</strong>
+            <ul class="docs-list">
+              <li>Acta de extravío o robo</li>
+              <li>Identificación oficial</li>
+              <li>Comprobante de pago</li>
+              <li>Formato de solicitud</li>
+            </ul>
+          </div>
+          
+          <a href="#" class="btn">Iniciar Trámite</a>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>Recomendaciones Importantes</h2>
+      <ul style="padding-left: 30px; line-height: 1.8;">
+        <li>Realiza tus trámites con anticipación, especialmente si los necesitas para una fecha específica</li>
+        <li>Verifica que todos tus documentos estén completos antes de acudir a Control Escolar</li>
+        <li>Mantén al corriente tus pagos y evita adeudos para facilitar cualquier trámite</li>
+        <li>Guarda los comprobantes de todos tus trámites realizados</li>
+        <li>Si tienes dudas, consulta primero en Control Escolar antes de realizar cualquier trámite</li>
+        <li>Los trámites de certificados y títulos tienen tiempos de entrega más largos debido a gestión externa</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025 CBTis 227 - Centro de Bachillerato Tecnológico Industrial y de Servicios No. 227</p>
+    <p>Otilio Edmundo Montaño Sánchez - Todos los derechos reservados</p>
+  </footer>
+
+</body>
+</html>
